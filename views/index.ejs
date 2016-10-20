@@ -1,63 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<% include common/header %>
-	</head>
-	<body>
-		<% include common/nav %>
+  <head>
+    <% include common/header %>
+  </head>
+  <body>
+    <% include common/nav %>
 
-	    <!-- Page Content -->
-	    <div class="container">
-	        <div class="row">
-				<div class="col-lg-12 page-header text-center">
-					<h1 class="highlight main">Future Blue Web Team</h1>
-				</div>
-			</div>
-			<div class="row">
-	    		<div class="col-lg-12 text-center">
-            		<p class="lead">
-            			The Future Blue Web Team is the intern community at IBM. Our main goal is to learn new &amp; cool technologies by using them.
-		            </p>
-		            <p class="lead">
-		            	We want to help improve the IBM community by building all sorts of apps that IBMers could benefit from. Currently, our team uses <span class="highlight">Bluemix</span>, <span class="highlight">Node.js</span>, <span class="highlight">Ruby on Rails</span>, and more. 
-		            </p>
-		        </div>
-		    </div>
-	        <div class="projects row text-center margin-top">
-	        	<div class="col-md-12">
-	        		<a href="/carpool">
-	        			<i class="fa fa-car white large" aria-hidden="true"></i>
-	        			<h3>Carpool Buddy</h3>
-	        		</a>
-	        	</div>
-<!-- 	        	<div class="col-md-6">
-	        		<a href="#">
-	        			<i class="fa fa-newspaper-o white large" aria-hidden="true"></i>
-	        			<h3>Intern Board</h3>
-	        		</a>
-	        	</div> -->
-	        </div>
+    <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 page-header text-center">
+          <h1 class="highlight main">Example App</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <form action="/" method="POST" id="idea-form">
+            <span class="white">Name:</span> <input type="text" placeholder="Name" name="name">
+            <span class="white">Email:</span> <input type="text" placeholder="Email" name="email">
+            <br>
+            <br>
+            <textarea row="4" cols="50" name="idea"></textarea>
+            <br>
+            <br>
+            <button class="btn btn-primary btn-lg" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
 
+    <hr>
 
+    <div class="container">
+      <div class="row">
+        <h2 class="text-center">Sustainability Ideas</h2>
+        <div class="col-md-12">
+          <div class="table-container white">
+            <table id="idea-catalog" class="table margin-top">
+              <thead>
+                <tr>
+                  <th>
+                    Name
+                  </th>
+                  <th>
+                    Email
+                  </th>
+                  <th>
+                    Idea
+                  </th>
+                  <th>
+                    <!-- Delete -->
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% ideas.forEach(function(idea, i) { %>
+                  <tr>
+                    <td>
+                      <%= idea.name %>
+                    </td>
+                    <td>
+                      <%= idea.email %>
+                    </td>
+                    <td>
+                      <%= idea.idea %>
+                    </td>
+                    <td>
+                      <form action="/delete" method="POST">
+                        <input type="hidden" name="ideaID" value="<%= idea._id %>">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete <%= idea._id %></button>
+                      </form>
+                    </td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+          <% if (ideas.length < 1) { %>
+            <div class="row white text-center">
+              No Ideas Yet!
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
 
-
-<!-- 					<form class="idea-form">
-						<div class="form-group">
-							<label for="userEmail">Email</label>
-							<input type="text" class="form-control" id="userEmail" placeholder="Enter your email so we know who to contact">
-						</div>
-						<div class="form-group">
-							<label for="projectName">Project Name</label>
-							<input type="text" class="form-control" id="projectName" placeholder="Give this project a name!">
-						</div>
-						<div class="form-group">
-							<label for="projectDescription">Project Description</label>
-							<textarea class="form-control" rows="6" placeholder="Describe this project a little bit - What will it be used for? Is there any demand for it?"></textarea>
-						</div>
-						<button type="submit" class="btn btn-success submit-button">Submit</button>
-					</form> -->
-	    </div> 
-
-	    <% include common/footer %>
-	</body>
+    <% include common/footer %>
+  </body>
 </html>

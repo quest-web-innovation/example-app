@@ -5,6 +5,7 @@ var express = require('express');
 var cfenv = require('cfenv'); // cfenv provides access to your Cloud Foundry environment, for more info, see: https://www.npmjs.com/package/cfenv
 var ejs = require('ejs');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 // create a new express server
 var app = express();
@@ -17,8 +18,15 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-/****************** routes ********************************/
+// Connect to db
+mongoose.connect('mongodb://peter:enviropower@ds039115.mlab.com:39115/ideas', function(err, db) {
+  if (!err) {
+    console.log("Database connected");
+  }
+})
 
+
+/****************** routes ********************************/
 var index = require('./routes/index');
 var about = require('./routes/about')
 var members = require('./routes/members'); 
