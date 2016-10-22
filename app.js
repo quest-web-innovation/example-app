@@ -2,14 +2,14 @@
 // Example App
 //------------------------------------------------------------------------------
 var express = require('express');
-var cfenv = require('cfenv'); // cfenv provides access to your Cloud Foundry environment, for more info, see: https://www.npmjs.com/package/cfenv
 var ejs = require('ejs');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 // create a new express server
 var app = express();
-var appEnv = cfenv.getAppEnv(); // get the app environment from Cloud Foundry
+
+var port = 3000;
 
 app.set('view engine', 'ejs'); // set ejs as the rendering engine
 
@@ -38,6 +38,6 @@ app.use('/members', members);
 app.use('/contact', contact);
 
 // start server
-app.listen(appEnv.port, '0.0.0.0', function() {
-  console.log("server starting on " + appEnv.url);
+app.listen(port, function() {
+  console.log("server starting on localhost:" + port);
 });
